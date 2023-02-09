@@ -1,6 +1,5 @@
 package com.lolmaxlevel.weblab4server.model;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,7 +1,6 @@
 package com.lolmaxlevel.weblab4server.model;
 
 import lombok.*;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 

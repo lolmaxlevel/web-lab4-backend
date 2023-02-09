@@ -3,6 +3,7 @@ package com.lolmaxlevel.weblab4server.controller;
 import com.lolmaxlevel.weblab4server.dto.AddAttemptRequest;
 import com.lolmaxlevel.weblab4server.dto.AddAttemptResponse;
 import com.lolmaxlevel.weblab4server.dto.AttemptListWithOffsetResponse;
+import com.lolmaxlevel.weblab4server.dto.AttemptsCountResponse;
 import com.lolmaxlevel.weblab4server.service.attempt.AttemptService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class AttemptController {
     }
 
 
-    @SuppressWarnings("rawtypes") // it is convenient to return ResponseEntity without generic type for empty 200.
+    @SuppressWarnings("rawtypes")
     @DeleteMapping("/delete_all")
     public ResponseEntity deleteAllAttempts() {
         attemptService.removeAll();
@@ -46,23 +47,18 @@ public class AttemptController {
      * @param size   - number of elements to return
      * @return - list of attempts with offset
      */
-//    @GetMapping("/get_with_offset")
-//    public ResponseEntity<AttemptListWithOffsetResponse> getPartAttempts(@RequestParam int offset,
-//                                                                         @RequestParam int size,
-//                                                                         @RequestParam(required = false) String id,
-//                                                                         @RequestParam(required = false) String x,
-//                                                                         @RequestParam(required = false) String y,
-//                                                                         @RequestParam(required = false) String r,
-//                                                                         @RequestParam(required = false) String result,
-//                                                                         @RequestParam(required = false) String time,
-//                                                                         @RequestParam(required = false) String processingTime
-//    ) {
-//        log.info("Getting part of attempts with offset = " + offset + " and size = " + size);
-//        final var data = attemptService
-//                .getPartAttempts(offset, size, id, x, y, r, result, time, processingTime);
-//        final var itemAfter = attemptService
-//                .getPartAttempts(offset + size, 1, id, x, y, r, result, time, processingTime);
-//        return ResponseEntity.ok(new AttemptListWithOffsetResponse(data, !itemAfter.isEmpty()));
-//    }
+    @GetMapping("/get_with_offset")
+    public ResponseEntity<AttemptListWithOffsetResponse> getPartAttempts(@RequestParam int offset,
+                                                                         @RequestParam int size) {
+        log.info("Getting part of attempts with offset = " + offset + " and size = " + size);
+        final var data = attemptService.getPartAttempts(offset, size);
+        final var itemAfter = attemptService.getPartAttempts(offset + size, 1);
+        return ResponseEntity.ok(new AttemptListWithOffsetResponse(data, !itemAfter.isEmpty()));
+    }
+    @GetMapping("/get_count")
+    public ResponseEntity<AttemptsCountResponse> getAttemptsCount() {
+        log.info("Getting attempts count: "+ attemptService.getAttemptsCount());
+        return ResponseEntity.ok(new AttemptsCountResponse(attemptService.getAttemptsCount()));
+    }
 
 }

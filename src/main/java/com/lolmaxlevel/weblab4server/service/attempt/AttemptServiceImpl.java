@@ -7,7 +7,6 @@ import com.lolmaxlevel.weblab4server.model.Attempt;
 import com.lolmaxlevel.weblab4server.service.logic.AreaChecker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -38,14 +37,19 @@ public class AttemptServiceImpl implements AttemptService {
         attemptsRepository.deleteAll();
     }
 
-//    @Override
-//    public List<Attempt> getPartAttempts(Integer offset, Integer size, String id, String x, String y, String r, String result, String time, String processingTime) {
-//        try {
-//            return attemptsRepository.getPartAttempts(offset, size, id, x, y, r, result, time, processingTime);
-//        } catch (Exception e) {
-//            log.error("Error while getting part of attempts", e);
-//            return List.of();
-//        }
-//    }
+    @Override
+    public List<Attempt> getPartAttempts(int offset, int size) {
+        try {
+            return attemptsRepository.getPartAttempts(offset, size);
+        } catch (Exception e) {
+            log.error("Error while getting part of attempts", e);
+            return List.of();
+        }
+    }
+    @Override
+    public int getAttemptsCount() {
+        return attemptsRepository.getAttemptsCount();
+    }
+
 }
 

@@ -7,6 +7,7 @@ import java.util.List;
 
 public record AttemptListWithOffsetResponse(
         @JsonProperty("attempts") List<Attempt> attempts,
-        @JsonProperty("has_more") boolean hasMore) {
+        @JsonProperty("has_more") boolean hasMore)
+{
 }
 

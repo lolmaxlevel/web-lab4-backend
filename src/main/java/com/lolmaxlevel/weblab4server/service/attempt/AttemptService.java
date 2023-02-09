@@ -10,8 +10,7 @@ public interface AttemptService {
 
     void removeAll();
 
-    //List<Attempt> getPartAttempts(int offset, int size);
-
-//    List<Attempt> getPartAttempts(Integer offset, Integer size, String id, String x, String y, String r, String result, String time, String processingTime);
+    List<Attempt> getPartAttempts(int offset, int size);
+    int getAttemptsCount();
 }
 
